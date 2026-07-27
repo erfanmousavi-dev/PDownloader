@@ -8,6 +8,7 @@ class BaseScreen(Screen):
         ("1", "push_screen('home')", "Home"),
         ("2", "push_screen('add_links')", "Add Links"),
         ("3", "push_screen('options')", "Options"),
+        ("4", "push_screen('logs')", "Logs"),
         ("d", "toggle_dark_mode", "Toggle dark mode"),
     ]
 
@@ -18,8 +19,11 @@ class BaseScreen(Screen):
         yield from self.screen_content()
         yield Footer()
 
+
     def screen_content(self):
+
         pass
+
 
     def action_toggle_dark_mode(self):
 

@@ -1,6 +1,38 @@
 import yt_dlp
 
 
+class YTDLPLogger:
+
+    def __init__(self, progress_manager):
+
+        self.progress_manager = progress_manager
+
+
+    def debug(self, message):
+
+        if message.startswith("[debug]"):
+
+            return
+
+        self.progress_manager.log(
+            message
+        )
+
+
+    def warning(self, message):
+
+        self.progress_manager.log(
+            f"WARNING: {message}"
+        )
+
+
+    def error(self, message):
+
+        self.progress_manager.log(
+            f"ERROR: {message}"
+        )
+
+
 class Downloader:
 
     def __init__(self, settings, progress_manager=None):
@@ -11,21 +43,37 @@ class Downloader:
 
     def download(self, links):
 
+        self.log(
+            "Downloader started"
+        )
+
         for link in links:
+
+            self.log(
+                f"Processing: {link}"
+            )
 
             if self.is_youtube_url(link):
 
+                self.log(
+                    "Detected YouTube URL"
+                )
+
                 if not self.settings.browser_cookies_enabled:
 
-                    print(
+                    self.log(
                         "YouTube download skipped: "
-                        "Enable browser cookies in settings."
+                        "Browser cookies are disabled"
                     )
 
                     continue
 
 
             options = self.get_options(link)
+
+            self.log(
+                "Creating download task"
+            )
 
             if self.progress_manager:
 
@@ -41,19 +89,35 @@ class Downloader:
 
             try:
 
+                self.log(
+                    "Creating YoutubeDL instance"
+                )
+
                 with yt_dlp.YoutubeDL(options) as ydl:
 
+                    self.log(
+                        "Calling yt-dlp download()"
+                    )
+
                     ydl.download([link])
+
+                self.log(
+                    "yt-dlp finished"
+                )
 
 
             except Exception as error:
 
-                print(
-                    f"Download error: {error}"
+                self.log(
+                    f"Download exception: {error}"
                 )
 
 
     def get_options(self, link):
+
+        self.log(
+            "Building yt-dlp options"
+        )
 
         options = {
 
@@ -68,6 +132,14 @@ class Downloader:
 
             "ignoreerrors":
                 True,
+
+            "logger":
+                YTDLPLogger(
+                    self.progress_manager
+                ),
+
+            "verbose":
+                True,
         }
 
 
@@ -79,13 +151,17 @@ class Downloader:
 
             else:
 
-                proxy = "socks5://"
+                proxy = "socks5h://"
 
 
             options["proxy"] = (
                 f"{proxy}"
                 f"{self.settings.proxy_ip}:"
                 f"{self.settings.proxy_port}"
+            )
+
+            self.log(
+                f"Proxy enabled: {proxy}"
             )
 
 
@@ -95,12 +171,20 @@ class Downloader:
                 self.settings.browser,
             )
 
+            self.log(
+                f"Browser cookies: {self.settings.browser}"
+            )
+
 
         if self.is_youtube_url(link):
 
             options["remote_components"] = [
                 "ejs:github"
             ]
+
+            self.log(
+                "Enabled YouTube remote components: ejs:github"
+            )
 
 
         return options
@@ -118,7 +202,7 @@ class Downloader:
             return "best[height<=720]"
 
 
-        return "bestvideo+bestaudio/best"
+        return "best"
 
 
     def is_youtube_url(self, url):
@@ -133,3 +217,16 @@ class Downloader:
             domain in url
             for domain in youtube_domains
         )
+
+
+    def log(self, message):
+
+        if self.progress_manager:
+
+            self.progress_manager.log(
+                message
+            )
+
+        else:
+
+            print(message)

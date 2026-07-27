@@ -1,4 +1,5 @@
 from textual import work
+
 from textual.widgets import (
     Label,
     Input,
@@ -15,9 +16,11 @@ class AddLinksScreen(BaseScreen):
 
     BINDINGS = [
         *BaseScreen.BINDINGS,
+
         ("r", "remove_link", "Remove selected link"),
         ("escape", "go_home", "Back"),
     ]
+
 
     def __init__(self, link_manager, settings):
 
@@ -26,6 +29,7 @@ class AddLinksScreen(BaseScreen):
         self.link_manager = link_manager
         self.settings = settings
         self.downloader = None
+
 
     def screen_content(self):
 
@@ -36,12 +40,15 @@ class AddLinksScreen(BaseScreen):
             id="link_input",
         )
 
-        yield ListView(id="links_list")
+        yield ListView(
+            id="links_list"
+        )
 
         yield Button(
             "Download",
             id="download",
         )
+
 
     def on_mount(self):
 
@@ -52,12 +59,24 @@ class AddLinksScreen(BaseScreen):
 
         self.update_links_list()
 
+        self.app.progress_manager.log(
+            "Add Links screen loaded"
+        )
+
+
     def on_input_submitted(self, event: Input.Submitted):
 
-        links = self.parse_links(event.value)
+        links = self.parse_links(
+            event.value
+        )
 
         for link in links:
+
             self.link_manager.add(link)
+
+            self.app.progress_manager.log(
+                f"Added link: {link}"
+            )
 
         self.update_links_list()
 
@@ -67,30 +86,50 @@ class AddLinksScreen(BaseScreen):
             f"{len(links)} link(s) added"
         )
 
+
     def parse_links(self, text):
 
         text = text.replace(",", " ")
 
         return text.split()
 
+
     def update_links_list(self):
 
-        links_list = self.query_one("#links_list")
+        links_list = self.query_one(
+            "#links_list"
+        )
 
         links_list.clear()
 
-        for index, link in enumerate(self.link_manager.get_all()):
+        for index, link in enumerate(
+            self.link_manager.get_all()
+        ):
 
             links_list.append(
                 ListItem(
-                    Label(f"{index + 1}. {link}")
+                    Label(
+                        f"{index + 1}. {link}"
+                    )
                 )
             )
+
 
     @work(thread=True)
     def start_download(self, links):
 
-        self.downloader.download(links)
+        self.app.progress_manager.log(
+            "Download worker started"
+        )
+
+        self.downloader.download(
+            links
+        )
+
+        self.app.progress_manager.log(
+            "Download worker finished"
+        )
+
 
     def on_button_pressed(self, event: Button.Pressed):
 
@@ -98,9 +137,15 @@ class AddLinksScreen(BaseScreen):
 
             return
 
+
         links = self.link_manager.get_all()
 
+
         if not links:
+
+            self.app.progress_manager.log(
+                "Download cancelled: no links"
+            )
 
             self.app.notify(
                 "No links to download"
@@ -108,17 +153,28 @@ class AddLinksScreen(BaseScreen):
 
             return
 
+
+        self.app.progress_manager.log(
+            f"Download requested for {len(links)} link(s)"
+        )
+
+
         self.start_download(
             links.copy()
         )
+
 
         self.app.notify(
             "Download started"
         )
 
+
     def action_remove_link(self):
 
-        links_list = self.query_one("#links_list")
+        links_list = self.query_one(
+            "#links_list"
+        )
+
 
         if links_list.index is None:
 
@@ -128,17 +184,25 @@ class AddLinksScreen(BaseScreen):
 
             return
 
+
         index = links_list.index
 
         link = self.link_manager.get_all()[index]
 
-        self.link_manager.remove(link)
+        self.link_manager.remove(
+            link
+        )
 
         self.update_links_list()
+
+        self.app.progress_manager.log(
+            f"Removed link: {link}"
+        )
 
         self.app.notify(
             "Link removed"
         )
+
 
     def action_go_home(self):
 
