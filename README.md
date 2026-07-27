@@ -1,16 +1,21 @@
+````markdown
 # PDownloader
 
-A Python video/audio downloader built with **yt-dlp** and **Textual**.
-
-**Languages:** English
+> ⚠️ **Windows Support Notice**
+>
+> Windows is currently **not officially supported**.
+>
+> PDownloader may start and the interface may work on Windows, but downloading features can have problems because of differences in SSL certificates, browser cookies, external dependencies, and yt-dlp requirements.
+>
+> The project is currently developed and tested mainly on Linux and macOS. Windows support will be improved in the future.
 
 ---
 
 ## About This Project
 
-PDownloader is a terminal-based video and audio downloader that uses `yt-dlp` for downloading and `Textual` for the user interface.
+PDownloader is a terminal-based video and audio downloader that uses **yt-dlp** for downloading and **Textual** for the user interface.
 
-I used AI tools during development to help with repetitive coding tasks, documentation cleanup, and Persian translation. AI is a tool, and I still review and maintain the code myself.
+I used AI tools during development to help with repetitive coding tasks, documentation cleanup, and translation. AI is a tool, and I still review, test, and maintain the code myself.
 
 If you notice any mistakes, bad practices, or unnecessary AI-generated code, please let me know politely by opening an issue. Suggestions and improvements are welcome!
 
@@ -29,7 +34,7 @@ You can check by running:
 
 ```bash
 python --version
-```
+````
 
 or:
 
@@ -47,7 +52,7 @@ The recommended way is using Git:
 git clone https://github.com/erfanmousavi-dev/PDownloader.git
 ```
 
-You can also download the project as a ZIP file, but using Git is recommended because it makes updating easier.
+You can also download the ZIP file from GitHub, but using Git is recommended because it makes updating easier.
 
 After downloading, enter the project directory:
 
@@ -75,8 +80,8 @@ source venv/bin/activate
 
 ### Windows
 
-```bash
-source venv\Scripts\activate
+```powershell
+venv\Scripts\activate
 ```
 
 Install the required packages:
@@ -109,7 +114,7 @@ python main.py
 
 on your keyboard.
 
-2. Paste your download link(s) into the input box.
+2. Paste your download link or links into the input box.
 
 You can add multiple links separated by:
 
@@ -120,7 +125,25 @@ You can add multiple links separated by:
 
 ---
 
-## Downloading YouTube Videos
+## Downloading Videos
+
+After adding your links:
+
+1. Press the **Download** button.
+
+2. The downloads will start in the background.
+
+3. Open the Home screen:
+
+```
+1
+```
+
+to see download progress.
+
+---
+
+## YouTube Downloads
 
 For YouTube downloads:
 
@@ -130,22 +153,16 @@ For YouTube downloads:
 3
 ```
 
-2. Enable **browser cookies**.
+2. Enable browser cookies.
 
 3. Select the browser where you are logged into YouTube:
 
 * Firefox
 * Chrome
 
-4. Return to the Add Links screen and add your YouTube links.
+4. Return to the Add Links screen.
 
-5. Press download.
-
-The downloads will appear on the Home screen:
-
-```
-1
-```
+5. Add your YouTube links and start downloading.
 
 ---
 
@@ -154,33 +171,34 @@ The downloads will appear on the Home screen:
 Currently supported features:
 
 * Video and audio downloads using yt-dlp
-* Text-based user interface using Textual
+* Terminal user interface using Textual
 * Multiple download links
 * Custom download location
 * Download quality selection
 * Proxy support
-* Browser cookie support for websites like YouTube
+* Browser cookie support
 * Download progress display
+* Application logs for debugging
 
 ---
 
 # Supported Websites
 
-PDownloader uses yt-dlp, so it supports many websites.
+PDownloader uses **yt-dlp**, so it supports many websites.
 
 I have tested:
 
 * YouTube
 * SoundCloud
-* Other yt-dlp supported websites
+* Other websites supported by yt-dlp
 
 If a website does not work, please open an issue with:
 
-* The website URL
-* The error message
+* Website URL
+* Error message from the logs
 * Your operating system
 
-and I will try to fix it.
+and I will try to investigate the problem.
 
 ---
 
@@ -193,6 +211,22 @@ You can configure settings from the Options screen, including:
 * Proxy settings
 * Browser cookie settings
 * Certificate verification options
+
+---
+
+# Troubleshooting
+
+## Windows Downloads Not Working
+
+Windows support is still experimental.
+
+If downloads fail:
+
+* Make sure Python is installed correctly.
+* Use a virtual environment.
+* Install all requirements again.
+* Make sure yt-dlp dependencies are available.
+* Check the application Logs screen for errors.
 
 ---
 
