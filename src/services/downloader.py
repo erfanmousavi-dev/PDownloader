@@ -101,6 +101,7 @@ class Downloader:
 
                     ydl.download([link])
 
+
                 self.log(
                     "yt-dlp finished"
                 )
@@ -126,6 +127,9 @@ class Downloader:
 
             "format":
                 self.get_quality(),
+
+            "merge_output_format":
+                "mp4",
 
             "nocheckcertificate":
                 self.settings.trust_all_certificates,
@@ -194,15 +198,24 @@ class Downloader:
 
         if self.settings.download_quality == "low":
 
-            return "worst"
+            return (
+                "worst/"
+                "worstvideo+worstaudio"
+            )
 
 
         if self.settings.download_quality == "medium":
 
-            return "best[height<=720]"
+            return (
+                "bestvideo[height<=720]+bestaudio/"
+                "best[height<=720]"
+            )
 
 
-        return "best"
+        return (
+            "bestvideo+bestaudio/"
+            "best"
+        )
 
 
     def is_youtube_url(self, url):
