@@ -13,5 +13,8 @@ env/
 # Project settings
 settings.json
 
+# My own downloads
+downloads/
+
 # macOS
 .DS_Store
