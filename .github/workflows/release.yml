@@ -22,30 +22,39 @@ jobs:
           python-version: "3.14"
 
       - name: Install dependencies
+        shell: pwsh
         run: |
           python -m pip install --upgrade pip
           pip install pyinstaller
           pip install -r requirements.txt
 
       - name: Build executable
+        shell: pwsh
         run: |
-          pyinstaller ^
-            --clean ^
-            --onefile ^
-            --console ^
-            --name PDownloader ^
-            --collect-all yt_dlp ^
-            main.py
+          pyinstaller --clean --onefile --console --name PDownloader --collect-all yt_dlp main.py
 
-      - name: Copy settings
+      - name: Verify build
+        shell: pwsh
         run: |
-          mkdir Release
-          copy dist\PDownloader.exe Release\
-          copy settings.json Release\
+          Get-ChildItem dist
+
+      - name: Create Release folder
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force -Path Release
+          Copy-Item dist/PDownloader.exe Release/
+          Copy-Item settings.json Release/
 
       - name: Zip Release
+        shell: pwsh
         run: |
-          powershell Compress-Archive Release PDownloader-${{ github.ref_name }}-Windows.zip
+          Compress-Archive -Path Release/* -DestinationPath PDownloader-${{ github.ref_name }}-Windows.zip
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: PDownloader-${{ github.ref_name }}
+          path: PDownloader-${{ github.ref_name }}-Windows.zip
 
       - name: Publish Release
         uses: softprops/action-gh-release@v2
