@@ -11,6 +11,7 @@ packaging==26.2
 platformdirs==4.11.0
 pycparser==3.0
 Pygments==2.20.0
+pyinstaller==6.21.0
 pyinstaller-hooks-contrib==2026.6
 rich==15.0.0
 setuptools==83.0.0
