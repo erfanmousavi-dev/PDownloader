@@ -6,8 +6,12 @@ class Settings:
 
     def __init__(self):
 
+        project_root = Path(__file__).resolve().parents[2]
+        downloads_path = project_root / "downloads"
+        downloads_path.mkdir(parents=True, exist_ok=True)
+
         self.file_path = Path("settings.json")
-        self.save_path = str(Path.home())
+        self.save_path = str(downloads_path)
         self.proxy_enabled = False
         self.proxy_type = "socks"
         self.proxy_ip = ""
