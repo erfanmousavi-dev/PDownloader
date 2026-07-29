@@ -1,20 +1,8 @@
-# PDownloader
-
-> ⚠️ **Windows Support Notice**
->
-> Windows is currently **not officially supported**.
->
-> PDownloader may start and the interface may work on Windows, but downloading features can have problems because of differences in SSL certificates, browser cookies, external dependencies, and yt-dlp requirements.
->
-> The project is currently developed and tested mainly on Linux and macOS. Windows support will be improved in the future.
-
----
-
 ## About This Project
 
 PDownloader is a terminal-based video and audio downloader that uses **yt-dlp** for downloading and **Textual** for the user interface.
 
-I used AI tools during development to help with repetitive coding tasks, documentation cleanup, and translation. AI is a tool, and I still review, test, and maintain the code myself.
+I used **AI** tools during development to help with repetitive coding tasks, documentation cleanup, and translation. AI is a tool, and I still review, test, and maintain the code myself.
 
 If you notice any mistakes, bad practices, or unnecessary AI-generated code, please let me know politely by opening an issue. Suggestions and improvements are welcome!
 
@@ -22,54 +10,28 @@ If you notice any mistakes, bad practices, or unnecessary AI-generated code, ple
 
 # Installation
 
-## Requirements
+There are two ways to use **PDownloader**:
 
-Before installing PDownloader, make sure you have:
+1. **Download the source code** and run it with Python.
+2. **Download a pre-built executable** from the GitHub Releases page for your operating system.
 
-* Python installed
-* Git installed
+# Notice
 
-You can check by running:
+If you use the pre-built executable, your operating system or antivirus may warn that it could be unsafe. This is because the application is not digitally signed by a certified developer. If you downloaded it from the official GitHub Releases page, you can safely choose **Run Anyway** (or the equivalent option on your operating system).
 
-```bash
-python --version
-````
-
-or:
-
-```bash
-python3 --version
-```
-
----
-
-## Step 1: Download the Project
-
-The recommended way is using Git:
+If you prefer to run the application from source, follow these steps:
 
 ```bash
 git clone https://github.com/erfanmousavi-dev/PDownloader.git
 ```
 
-You can also download the ZIP file from GitHub, but using Git is recommended because it makes updating easier.
-
-After downloading, enter the project directory:
-
 ```bash
 cd PDownloader
 ```
 
----
-
-## Step 2: Create a Virtual Environment
-
-Create a Python virtual environment:
-
 ```bash
 python -m venv venv
 ```
-
-Activate it:
 
 ### Linux / macOS
 
@@ -77,93 +39,24 @@ Activate it:
 source venv/bin/activate
 ```
 
-### Windows
+### Windows (PowerShell)
 
 ```powershell
-venv\Scripts\activate
+venv\Scripts\Activate.ps1
 ```
 
-Install the required packages:
+Install the dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
----
-
-## Step 3: Run PDownloader
-
-Start the application:
+Run the application:
 
 ```bash
 python main.py
 ```
 
----
-
-# How To Use
-
-## Adding Download Links
-
-1. Open the **Add Links** screen by pressing:
-
-```
-2
-```
-
-on your keyboard.
-
-2. Paste your download link or links into the input box.
-
-You can add multiple links separated by:
-
-* Space
-* Comma (,)
-
-3. Press **Enter** to add the links to your download list.
-
----
-
-## Downloading Videos
-
-After adding your links:
-
-1. Press the **Download** button.
-
-2. The downloads will start in the background.
-
-3. Open the Home screen:
-
-```
-1
-```
-
-to see download progress.
-
----
-
-## YouTube Downloads
-
-For YouTube downloads:
-
-1. Open the **Options** screen:
-
-```
-3
-```
-
-2. Enable browser cookies.
-
-3. Select the browser where you are logged into YouTube:
-
-* Firefox
-* Chrome
-
-4. Return to the Add Links screen.
-
-5. Add your YouTube links and start downloading.
-
----
 
 # Features
 
@@ -210,22 +103,6 @@ You can configure settings from the Options screen, including:
 * Proxy settings
 * Browser cookie settings
 * Certificate verification options
-
----
-
-# Troubleshooting
-
-## Windows Downloads Not Working
-
-Windows support is still experimental.
-
-If downloads fail:
-
-* Make sure Python is installed correctly.
-* Use a virtual environment.
-* Install all requirements again.
-* Make sure yt-dlp dependencies are available.
-* Check the application Logs screen for errors.
 
 ---
 
