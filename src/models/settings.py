@@ -1,17 +1,21 @@
 import json
 from pathlib import Path
-
+import sys
 
 class Settings:
 
     def __init__(self):
 
-        project_root = Path(__file__).resolve().parents[2]
-        downloads_path = project_root / "downloads"
+        if getattr(sys, "frozen", False):
+            base_dir = Path(sys.executable).parent
+        else:
+            base_dir = Path(__file__).resolve().parents[2]
+
+        downloads_path = base_dir / "downloads"
         downloads_path.mkdir(parents=True, exist_ok=True)
 
-        self.file_path = Path("settings.json")
-        self.save_path = str(downloads_path)
+        self.file_path = base_dir / "settings.json"
+        self.save_path = base_dir / "downloads"
         self.proxy_enabled = False
         self.proxy_type = "socks"
         self.proxy_ip = ""
@@ -19,7 +23,6 @@ class Settings:
         self.download_quality = "high"
         self.trust_all_certificates = False
 
-        # Browser cookies
         self.browser_cookies_enabled = False
         self.browser = "firefox"
 
