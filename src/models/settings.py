@@ -14,7 +14,7 @@ class Settings:
         downloads_path = base_dir / "downloads"
         downloads_path.mkdir(parents=True, exist_ok=True)
 
-        self.file_path = str(base_dir / "settings.json")
+        self.file_path = Path(base_dir / "settings.json")
         self.save_path = str(base_dir / "downloads")
         self.proxy_enabled = False
         self.proxy_type = "socks"
