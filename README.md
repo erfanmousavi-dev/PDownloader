@@ -8,6 +8,20 @@ If you notice any mistakes, bad practices, or unnecessary AI-generated code, ple
 
 ---
 
+# Screenshots
+
+<p align="center">
+  <img src="screenshots/1.png" width="48%" alt="Add Links Screen">
+  <img src="screenshots/2.png" width="48%" alt="Logs screen">
+</p>
+
+<p align="center">
+  <img src="screenshots/3.png" width="48%" alt="Options Screen">
+  <img src="screenshots/4.png" width="48%" alt="Download Screen">
+</p>
+
+---
+
 # Installation
 
 There are two ways to use **PDownloader**:
