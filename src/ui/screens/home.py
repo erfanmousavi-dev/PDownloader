@@ -10,7 +10,6 @@ class HomeScreen(BaseScreen):
 
         yield Label("\n")
         yield Label("Welcome to PDownloader!")
-        yield Label("You can download videos/audio from many websites.")
 
     def on_mount(self):
 
