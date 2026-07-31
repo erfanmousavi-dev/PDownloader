@@ -15,7 +15,7 @@ class BaseScreen(Screen):
 
     def compose(self):
 
-        yield Header(show_clock=True)
+        yield Header()
         yield from self.screen_content()
         yield Footer()
 
