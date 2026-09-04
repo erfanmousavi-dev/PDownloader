@@ -18,7 +18,6 @@ class PDownloader(App):
         ("2", "push_screen('add_links')", "Add Links"),
         ("3", "push_screen('options')", "Options"),
         ("4", "push_screen('logs')", "Logs"),
-        ("d", "toggle_dark_mode", "Toggle dark mode"),
     ]
 
     SCREENS = {
@@ -60,16 +59,6 @@ class PDownloader(App):
         )
 
         self.push_screen("home")
-
-
-    def action_toggle_dark_mode(self):
-
-        self.theme = (
-            "textual-dark"
-            if self.theme == "textual-light"
-            else "textual-light"
-        )
-
 
     def update_download_progress(self, value, text):
 

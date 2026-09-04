@@ -9,7 +9,6 @@ class BaseScreen(Screen):
         ("2", "push_screen('add_links')", "Add Links"),
         ("3", "push_screen('options')", "Options"),
         ("4", "push_screen('logs')", "Logs"),
-        ("d", "toggle_dark_mode", "Toggle dark mode"),
     ]
 
 
@@ -23,8 +22,3 @@ class BaseScreen(Screen):
     def screen_content(self):
 
         pass
-
-
-    def action_toggle_dark_mode(self):
-
-        self.app.action_toggle_dark_mode()
