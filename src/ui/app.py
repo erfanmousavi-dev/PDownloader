@@ -10,8 +10,17 @@ from src.models.settings import Settings
 
 from src.services.progress import ProgressManager
 
+CSS = """
+Header {
+    HeaderIcon {
+        visibility: hidden;
+    }
+}
+"""
 
 class PDownloader(App):
+
+    CSS = CSS
 
     BINDINGS = [
         ("1", "push_screen('home')", "Home"),
