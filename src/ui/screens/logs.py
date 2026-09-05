@@ -1,3 +1,6 @@
+import sys
+from pathlib import Path
+
 from datetime import datetime
 
 from textual.widgets import Label, RichLog, Button
@@ -55,6 +58,14 @@ class LogsScreen(BaseScreen):
 
     def save_logs(self):
 
+        if getattr(sys, "frozen", False):
+            base_dir = Path(sys.executable).parent
+        else:
+            base_dir = Path(__file__).resolve().parents[3]
+
+        logs_path = base_dir / "logs"
+        logs_path.mkdir(parents=True, exist_ok=True)
+    
         logs = self.app.progress_manager.get_logs()
 
         if not logs:
@@ -72,9 +83,10 @@ class LogsScreen(BaseScreen):
             ".txt"
         )
 
+        save_path = logs_path / filename
 
         with open(
-            filename,
+            save_path,
             "w",
             encoding="utf-8",
         ) as file:
